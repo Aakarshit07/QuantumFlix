@@ -3,16 +3,16 @@ import Header from "./Header"
 import { checkValidData } from "../utils/validate";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
+import { gitProfile } from "../utils/constants";
 
 const Login = () => {
 
   const [ isSignInForm, setIsSignInForm] = useState(true);
   const [ errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
 
   const name = useRef(null);
   const email = useRef(null);
@@ -21,7 +21,6 @@ const Login = () => {
   const handleButtonClick = () => {
     const nameValue = name.current ? name.current.value : "";
     const message = checkValidData(nameValue, email.current.value, password.current.value)
-    console.log(message);
     setErrorMessage(message);
     if(message) return;
     
@@ -32,15 +31,19 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         updateProfile(user, {
-          displayName: nameValue, photoURL: "https://avatars.githubusercontent.com/u/102687269?v=4"
+          displayName: nameValue, 
+          photoURL: gitProfile
         }).then(() => {
           const {uid, email, displayName, photoURL} = auth.currentUser;
-          dispatch(addUser({uid: uid, email: email, displayName: displayName, photoURL: photoURL }));  
-          navigate("/browse");
+          dispatch(addUser({
+            uid: uid, 
+            email: email, 
+            displayName: displayName, 
+            photoURL: photoURL 
+          }));  
         }).catch((error) => {
           setErrorMessage(error.message);
         });
-        console.log("User Sign Up: ", user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -53,8 +56,6 @@ const Login = () => {
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate("/browse");
-        console.log("User Sign In: ", user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -72,7 +73,7 @@ const Login = () => {
   return (
     <div className="bg-login-pattern h-screen">
         <Header />
-        <div className="flex justify-center items-center my-10 mx-4 p-2">
+        <div className="flex justify-center items-center mx-4 px-2 pt-32">
             <form onSubmit={(e) => e.preventDefault()} className="w-96 bg-black/90 rounded-lg">
                 <div className="flex flex-col gap-4 p-8">
                   <p className="text-left text-4xl text-gray-300 mb-4">{isSignInForm ? "Sign In" : "Sign Up"}</p>
