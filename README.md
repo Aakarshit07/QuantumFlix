@@ -28,6 +28,14 @@
 - update Store with trailer video data
 - Embedded the youtube video and make it autoplay and mute
 - Tailwind Classe to make Main Container look awesom
+- Build Secondary Container
+- Build Movie List
+- Build Movie Card
+- TMDB Image CDN URL
+- Made the Browse Page with TailwindCSS
+- usePopularMovies Custom Hook
+- useTrending Custom Hook
+- useTopRated Custom Hook
 
 # Features
 - Login/Sign up
@@ -40,6 +48,10 @@
         - Title and Description
         - Movies Suggestion
             - Movies List * N
+                - Movie list - Popular  
+                - Movide card * N
+                - Movie list - Now Playing
+                - Movie list - Trending 
 - NetflixGPT
     - Search Bar
     - Movies List

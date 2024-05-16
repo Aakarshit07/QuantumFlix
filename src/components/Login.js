@@ -13,7 +13,6 @@ const Login = () => {
   const [ errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
 
-
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
