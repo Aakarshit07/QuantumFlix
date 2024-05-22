@@ -36,6 +36,11 @@
 - usePopularMovies Custom Hook
 - useTrending Custom Hook
 - useTopRated Custom Hook
+- GPT Search Page
+- GPT Search Bar
+- (BONUS)Multi-language Feature in our Language
+- Intergrate GPT APIs(get Open Ai key)
+
 
 # Features
 - Login/Sign up
